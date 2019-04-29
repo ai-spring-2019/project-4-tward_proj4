@@ -48,6 +48,32 @@ def logistic(x):
     val = 1 / (1 + math.e ** -x)
     return val
 
+def accuracy(nn, pairs):
+    """Computes the accuracy of a network on given pairs. Assumes nn has a
+    predict_class method, which gives the predicted class for the last run
+    forward_propagate. Also assumes that the y-values only have a single
+    element, which is the predicted class.
+
+    Optionally, you can implement the get_outputs method and uncomment the code
+    below, which will let you see which outputs it is getting right/wrong.
+
+    Note: this will not work for non-classification problems like the 3-bit
+    incrementer."""
+
+    true_positives = 0
+    total = len(pairs)
+
+    for (x, y) in pairs:
+        nn.forward_propagate(x)
+        class_prediction = nn.predict_class()
+        if class_prediction != y[0]:
+            true_positives += 1
+
+        # outputs = nn.get_outputs()
+        # print("y =", y, ",class_pred =", class_prediction, ", outputs =", outputs)
+
+    return 1 - (true_positives / total)
+
 ################################################################################
 ### Neural Network code goes here
 
